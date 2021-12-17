@@ -15,7 +15,8 @@ import {
   XIcon,
 } from "@heroicons/react/outline"
 import { SocketContext } from "../../context/socket"
-import { Image } from "blitz"
+import { Image, useMutation } from "blitz"
+import logout from "app/auth/mutations/logout"
 import { UserInfo } from "./UserInfo"
 import { DotsHorizontalIcon, ExternalLinkIcon, LogoutIcon } from "@heroicons/react/solid"
 
@@ -33,6 +34,7 @@ function classNames(...classes) {
 }
 
 export default function SideBar(props) {
+  const [logoutMutation] = useMutation(logout)
   const [currentNavigation, setCurrentNavigation] = useState(navigation[0])
 
   const changeNavigation = (changeToNavName) => {
@@ -83,12 +85,12 @@ export default function SideBar(props) {
                 </div>
               ))}
             </nav>
-            <button
+            {(<button
               className="h-10 uppercase px-5 m-2 text-white transition-colors duration-150 bg-rose-600 rounded-lg focus:shadow-outline hover:bg-rose-800 font-bold"
-              onClick={() => props.disconnect()}
+              onClick={async () => await logoutMutation()}
             >
-              EXIT STREAM <LogoutIcon className="inline-block w-6 h-6" />
-            </button>
+              LOGOUT <LogoutIcon className="inline-block w-6 h-6" />
+            </button>)}
           </div>
           <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
             <a href="#" className="flex-shrink-0 w-full group block">
