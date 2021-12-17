@@ -33,7 +33,7 @@ export const UserInfo = () => {
     )
   } else {
     return (
-      <>
+      <div className="w-96">
         <Link href={Routes.SignupPage()}>
           <a className="button small rounded-lg uppercase bg-rose-500 text-white p-2">
             <strong>Sign Up</strong>
@@ -41,11 +41,11 @@ export const UserInfo = () => {
         </Link>
         <span className="mx-2">or</span>
         <Link href={Routes.LoginPage()}>
-          <a className="button small rounded-lg uppercase bg-rose-500 text-white p-2">
+          <a className="button small rounded-lg uppercase bg-black text-white p-2">
             <strong>Login</strong>
           </a>
         </Link>
-      </>
+      </div>
     )
   }
 }

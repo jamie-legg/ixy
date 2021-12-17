@@ -1,7 +1,8 @@
 import Head from 'next/head'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import Boxes from '../components/Boxes'
 import { Fade,Bounce,Flip } from "react-awesome-reveal";
+import { UserInfo } from './UserInfo';
 
 export default function Start() {
   const [ isOpen, setIsOpen ] = useState(false)
@@ -31,9 +32,9 @@ export default function Start() {
           <Boxes expanded={isOpen} clickHandler={clickBox} />
           </Fade>
           <div className='flex justify-between'>
-          <p className="mt-30 font-bo text-2xl">display name: <input value={username} onChange={(e) => {
-            setUsername(e.target.value)
-          }} placeholder='YOUR NAME' className='text-center w-48 border-2 border-dashed border-rose-300 placeholder-rose-300 text-rose-600 font-bold'></input></p>
+            <Suspense fallback={<div>Loading...</div>}>
+            <UserInfo />
+            </Suspense>
 
             <p className="mt-30 text-2xl">select an option to <span className='text-rose-600 font-bold transition-all hover:bg-rose-600 hover:text-white'>get started &rarr;</span></p>
 
