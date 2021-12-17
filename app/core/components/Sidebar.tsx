@@ -14,12 +14,14 @@ import {
   UsersIcon,
   XIcon,
 } from "@heroicons/react/outline"
-import { SocketContext } from "../context/socket"
+import { SocketContext } from "../../context/socket"
 import { Image } from "blitz"
 import { UserInfo } from "./UserInfo"
+import { DotsHorizontalIcon, ExternalLinkIcon, LogoutIcon } from "@heroicons/react/solid"
 
 const navigation = [
-  { name: "Just Me", href: "#", icon: UserIcon, current: true },
+  { name: "Home", href: "#", icon: HomeIcon, current: true },
+  { name: "Just Me", href: "#", icon: UserIcon, current: false },
   { name: "Yan (AI)", href: "#", icon: CodeIcon, current: false },
   { name: "My Friends", href: "#", icon: UsersIcon, current: false },
   { name: "Global Streams", href: "#", icon: GlobeAltIcon, current: false },
@@ -82,10 +84,10 @@ export default function SideBar(props) {
               ))}
             </nav>
             <button
-              className="h-10 uppercase px-5 m-2 text-indigo-100 transition-colors duration-150 bg-red-600 rounded-lg focus:shadow-outline hover:bg-red-800 font-bold"
+              className="h-10 uppercase px-5 m-2 text-white transition-colors duration-150 bg-rose-600 rounded-lg focus:shadow-outline hover:bg-rose-800 font-bold"
               onClick={() => props.disconnect()}
             >
-              Leave
+              EXIT STREAM <LogoutIcon className="inline-block w-6 h-6" />
             </button>
           </div>
           <div className="flex-shrink-0 flex border-t border-gray-200 p-4">

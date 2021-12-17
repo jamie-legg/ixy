@@ -3,11 +3,12 @@ import { Image, Link, BlitzPage, useMutation, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import { SocketContext } from "../context/socket"
-import ChatInput from "../components/ChatInput"
+import ChatInput from "../core/components/ChatInput"
 import logout from "app/auth/mutations/logout"
 import logo from "public/logo.png"
-import Sidebar from "../components/Sidebar"
+import Sidebar from "../core/components/Sidebar"
 import { MenuIcon } from "@heroicons/react/outline"
+import Start from "../core/components/Start"
 
 /*
  * This file is just for a pleasant getting started page for your new app.
@@ -80,11 +81,13 @@ function Home() {
     <>
       <div>
         <Sidebar join={join} setRoomSelect={setStream} exit={exit} />
+        <Start />
+
         <div className="md:pl-64 flex flex-col flex-1">
           <div className="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-gray-100">
             <button
               type="button"
-              className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              className="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-rose-500"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>
