@@ -3,10 +3,14 @@ import { Dialog, Transition } from "@headlessui/react"
 import {
   CalendarIcon,
   ChartBarIcon,
+  CodeIcon,
   FolderIcon,
+  GlobeAltIcon,
   HomeIcon,
   InboxIcon,
   MenuIcon,
+  PlusIcon,
+  UserIcon,
   UsersIcon,
   XIcon,
 } from "@heroicons/react/outline"
@@ -15,12 +19,11 @@ import { Image } from "blitz"
 import { UserInfo } from "./UserInfo"
 
 const navigation = [
-  { name: "Room 1", href: "#", icon: HomeIcon, current: true },
-  { name: "Room 2", href: "#", icon: UsersIcon, current: false },
-  { name: "Room 3", href: "#", icon: FolderIcon, current: false },
-  { name: "Room 4", href: "#", icon: CalendarIcon, current: false },
-  { name: "Room 5", href: "#", icon: InboxIcon, current: false },
-  { name: "Room 6", href: "#", icon: ChartBarIcon, current: false },
+  { name: "Just Me", href: "#", icon: UserIcon, current: true },
+  { name: "Yan (AI)", href: "#", icon: CodeIcon, current: false },
+  { name: "My Friends", href: "#", icon: UsersIcon, current: false },
+  { name: "Global Streams", href: "#", icon: GlobeAltIcon, current: false },
+  { name: "Create New", href: "#", icon: PlusIcon, current: false },
 ]
 
 function classNames(...classes) {
@@ -28,6 +31,18 @@ function classNames(...classes) {
 }
 
 export default function SideBar(props) {
+  const [currentNavigation, setCurrentNavigation] = useState(navigation[0])
+
+  const changeNavigation = (changeToNavName) => {
+    const currentNav = navigation
+    navigation.forEach((nav) => {
+      nav.current = false
+    })
+    let newNav = currentNav.find((nav) => nav.name === changeToNavName)
+    newNav!.current = true
+    setCurrentNavigation(newNav)
+  }
+
   const socket = useContext(SocketContext)
 
   function updateRoom(room) {
