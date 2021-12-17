@@ -1,6 +1,9 @@
 import { BlitzConfig, sessionMiddleware, simpleRolesIsAuthorized } from "blitz"
 
 const config: BlitzConfig = {
+  images: {
+    domains: ["tailwindui.com"],
+  },
   middleware: [
     sessionMiddleware({
       cookiePrefix: "ixy",
