@@ -28,7 +28,7 @@ function slugify(string) {
 }
 
 function getMessages() {
-  return ["Loading"]
+  return []
 }
 
 interface IStream {
@@ -50,7 +50,7 @@ function Home() {
     updatedAt: "",
   }
   const socket = useContext(SocketContext)!
-  const [messages, setMessages] = useState(getMessages())
+  const [messages, setMessages] = useState<any[]>(getMessages())
   const [stream, setStream] = useState(defaultStream)
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -70,13 +70,16 @@ function Home() {
       time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
     })
   }
-  function privateRoom(message, password) {
-    socket.emit("SEND_PASSWORD", password)
+  function exit() {
+    {
+      stream.name
+    }
   }
+
   return (
     <>
       <div>
-        <Sidebar join={join} setRoomSelect={setStream} privateRoom={privateRoom} />
+        <Sidebar join={join} setRoomSelect={setStream} exit={exit} />
         <div className="md:pl-64 flex flex-col flex-1">
           <div className="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-gray-100">
             <button

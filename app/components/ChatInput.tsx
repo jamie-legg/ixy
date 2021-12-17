@@ -6,7 +6,7 @@ export default function ChatInput(props) {
   return (
     <div className="flex space-x-2">
       <input
-        className="bg-gray-400 p-2 rounded-lg w-full"
+        className="bg-gradient-to-br from-white to-gray-200 p-2 rounded-lg w-full"
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
