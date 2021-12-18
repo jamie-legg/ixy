@@ -8,6 +8,7 @@ import logout from "app/auth/mutations/logout"
 import logo from "public/logo.png"
 import Sidebar from "./Sidebar"
 import { MenuIcon } from "@heroicons/react/outline"
+import { AdjustmentsIcon, BackspaceIcon, ChatIcon, CheckCircleIcon, IdentificationIcon, LogoutIcon, MailIcon, RefreshIcon, RewindIcon, TagIcon, UserIcon } from "@heroicons/react/solid"
 
 export const UserInfo = () => {
   const currentUser = useCurrentUser()
@@ -16,18 +17,26 @@ export const UserInfo = () => {
   if (currentUser) {
     return (
       <>
-        <button
-          className="button small"
-          onClick={async () => {
-            await logoutMutation()
-          }}
-        >
-          Logout
-        </button>
-        <div>
+        <div className="text-left">
+        <IdentificationIcon className="text-black inline-block w-6 h-6" />
           User id: <code>{currentUser.id}</code>
           <br />
+          <AdjustmentsIcon className="text-black inline-block w-6 h-6" />
           User role: <code>{currentUser.role}</code>
+          <br />
+          <TagIcon className="text-black inline-block w-6 h-6" />
+          User name: {currentUser.name? <code>{currentUser.name}</code> : <>
+          <input type="text" className="w-28" placeholder="SET A NAME"/><CheckCircleIcon className="text-rose-500 inline-block w-6 h-6" />
+          </>}
+          <br />
+          <MailIcon className="text-black inline-block w-6 h-6" />
+          User email: <code>{currentUser.email}</code>
+          <div
+          className="bg-red-500 cursor-pointer font-bold w-max rounded-sm px-4 flex text-white"
+          onClick={() => logoutMutation()}>
+            <LogoutIcon className="w-6 h-6 mx-2"></LogoutIcon>
+            logout
+          </div>
         </div>
       </>
     )
