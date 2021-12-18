@@ -2,6 +2,9 @@ import { Suspense } from "react"
 import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getStreams from "app/streams/queries/getStreams"
+import Table from "app/core/components/Table"
+import { ChevronLeftIcon, ChevronRightIcon, PlusIcon } from "@heroicons/react/outline"
+import { ChevronLeftIcon as ChevronLeftIconSolid, ChevronRightIcon as ChevronRightIconSolid, PlusCircleIcon, PlusIcon as PlusIconSolid } from "@heroicons/react/solid"
 
 const ITEMS_PER_PAGE = 100
 
@@ -19,22 +22,20 @@ export const StreamsList = () => {
 
   return (
     <div>
-      <ul>
-        {streams.map((stream) => (
-          <li key={stream.id}>
-            <Link href={Routes.ShowStreamPage({ streamId: stream.id })}>
-              <a>{stream.name}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
 
+    <h1>Page: {page}</h1>
+    <div className="w-full h-full flex justify-center place-content-center">
       <button disabled={page === 0} onClick={goToPreviousPage}>
-        Previous
+        <ChevronLeftIcon className="w-12 h-12 text-black"/>
       </button>
+      <Link href={Routes.NewStreamPage()}>
+      <PlusIcon className="w-12 h-12 text-black"/>
+          </Link>
       <button disabled={!hasMore} onClick={goToNextPage}>
-        Next
+      <ChevronRightIcon className="w-12 h-12 text-black"/>
       </button>
+      </div>
+      <Table headings={['name', 'owner', 'status', 'type']} body={streams} />
     </div>
   )
 }
@@ -48,9 +49,7 @@ const StreamsPage: BlitzPage = () => {
 
       <div>
         <p>
-          <Link href={Routes.NewStreamPage()}>
-            <a>Create Stream</a>
-          </Link>
+
         </p>
 
         <Suspense fallback={<div>Loading...</div>}>

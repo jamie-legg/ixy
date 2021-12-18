@@ -2,8 +2,11 @@ import { Link, useRouter, useMutation, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import createStream from "app/streams/mutations/createStream"
 import { StreamForm, FORM_ERROR } from "app/streams/components/StreamForm"
+import { CreateStream } from "app/auth/validations"
+import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 
 const NewStreamPage: BlitzPage = () => {
+  const currentUser = useCurrentUser();
   const router = useRouter()
   const [createStreamMutation] = useMutation(createStream)
 
@@ -13,14 +16,13 @@ const NewStreamPage: BlitzPage = () => {
 
       <StreamForm
         submitText="Create Stream"
-        // TODO use a zod schema for form validation
-        //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-        //         then import and use it here
-        // schema={CreateStream}
-        // initialValues={{}}
         onSubmit={async (values) => {
           try {
-            const stream = await createStreamMutation(values)
+            const stream = await createStreamMutation({
+              name: values.name,
+              owner: { id: currentUser!.id, role: currentUser!.role },
+              ownerId: currentUser!.id,
+            })
             router.push(Routes.ShowStreamPage({ streamId: stream.id }))
           } catch (error: any) {
             console.error(error)

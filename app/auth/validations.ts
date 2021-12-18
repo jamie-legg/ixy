@@ -1,5 +1,16 @@
 import { z } from "zod"
 
+export const CreateStream = z.object({
+  name: z.string(),
+  owner: z.object(
+    {
+      id: z.number(),
+      role: z.string(),
+    }
+  ),
+  ownerId: z.number(),
+})
+
 export const email = z
   .string()
   .email()
