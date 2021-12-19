@@ -1,4 +1,4 @@
-import { Fragment, useState, useContext, Suspense } from "react"
+import { Fragment, useState, useContext, Suspense, useEffect } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import {
   CalendarIcon,
@@ -23,20 +23,29 @@ import { DotsHorizontalIcon, ExternalLinkIcon, LogoutIcon } from "@heroicons/rea
 import { Fade } from "react-awesome-reveal"
 import { classNames } from "../utils/utils"
 import { HomeIcon as HomeIconSolid, UserIcon as UserIconSolid, CodeIcon as CodeIconSolid, UsersIcon as UsersIconSolid, GlobeAltIcon as GlobeAltIconSolid, PlusIcon as PlusIconSolid } from "@heroicons/react/solid";
+import NewStreamDialog from "app/streams/components/NewStreamPopover"
 
 const navigation = [
-  { name: "Home", href: "/", activeIcon: HomeIconSolid, icon: HomeIcon, current: false },
-  { name: "Just Me", href: "/me", activeIcon: UserIconSolid, icon: UserIcon, current: true },
-  { name: "Yan (AI)", href: "#", activeIcon: CodeIconSolid, icon: CodeIcon, current: false },
-  { name: "My Friends", href: "#", activeIcon: UsersIconSolid, icon: UsersIcon, current: false },
-  { name: "Global Streams", href: "#", activeIcon: GlobeAltIconSolid, icon: GlobeAltIcon, current: false },
-  { name: "Create New", href: "#", activeIcon: PlusIconSolid, icon: PlusIcon, current: false },
+  { name: "home", href: "/", activeIcon: HomeIconSolid, icon: HomeIcon, current: false },
+  { name: "just me", href: "/me", activeIcon: UserIconSolid, icon: UserIcon, current: true },
+  { name: "yan (AI)", href: "/yan", activeIcon: CodeIconSolid, icon: CodeIcon, current: false },
+  { name: "my friends", href: "/friends", activeIcon: UsersIconSolid, icon: UsersIcon, current: false },
+  { name: "global streams", href: "/global", activeIcon: GlobeAltIconSolid, icon: GlobeAltIcon, current: false },
+  { name: "create new", href: "/streams/new", activeIcon: PlusIconSolid, icon: PlusIcon, current: false },
 ]
 
-export default function SideBar(props) {
+export default function SideBar({ currentNav }) {
   const [logoutMutation] = useMutation(logout)
-  const [currentNavigation, setCurrentNavigation] = useState(navigation[0])
-
+  const [currentNavigation, setCurrentNavigation] = useState(navigation[currentNav || 0])
+  const [createStreamModalOpen, setCreateStreamModalOpen] = useState(false)
+  useEffect(() => {
+    let tempNavigation = navigation
+    tempNavigation.forEach((nav) => {
+      nav.current = false
+    })
+    tempNavigation[currentNav]!.current = true
+    setCurrentNavigation(tempNavigation[currentNav]!)
+  }, [currentNav])
   const changeNavigation = (changeToNavName) => {
     const currentNav = navigation
     navigation.forEach((nav) => {
@@ -49,26 +58,24 @@ export default function SideBar(props) {
 
   const socket = useContext(SocketContext)
 
-  function updateRoom(room) {
-    props.setRoomSelect(room)
-    socket!.emit("room::join", { room })
-  }
-
   return (
     <>
-              <Fade duration={200}>
       {/* Static sidebar for desktop */}
       <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
         {/* Sidebar component, swap this element with another sidebar if you like */}
-        <div className="flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white">
+        <div className="flex-1 flex flex-col min-h-0 border-r border-gray-200 bg-white dark:border-ixy-600 dark:bg-ixy-900 dark:text-ixy-100">
           <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
             <div className="flex items-center flex-shrink-0 px-4"></div>
+            <h1 className="uppercase font-bold text-3xl px-4">ixy<span className="text-ixy-800 ml-1">:)</span></h1>
+            <h2 className="text-sm font-thin px-4">chat with friends and ai</h2>
             <nav className="mt-5 flex-1 px-2 bg-white space-y-1">
-              {navigation.map((item) => (
-                <Link href={item.href} key={item.name}>
+              {navigation.map((item, index) => index === navigation.length - 1 ?
+                  <NewStreamDialog /> :
+              (
+                <Link href={index === navigation.length-1? "" : item.href} key={item.name}>
                 <div
                   key={item.name}
-                  onClick={() => updateRoom(item.name)}
+                  onClick={() => index === navigation.length-1? setCreateStreamModalOpen(true) : null}
                   className={classNames(
                     item.current
                       ? "bg-gray-100 text-black"
@@ -76,6 +83,7 @@ export default function SideBar(props) {
                     "group cursor-pointer flex items-center px-2 py-2 text-sm font-medium rounded-md"
                   )}
                 >
+
                   {
                     item.current?
                     <item.activeIcon
@@ -101,7 +109,7 @@ export default function SideBar(props) {
                 </div>
                 </Link>
               ))}
-            </nav>
+              </nav>
           </div>
           <div className="flex-shrink-0 flex border-t border-gray-200 p-4">
             <a href="#" className="flex-shrink-0 w-full group block">
@@ -117,7 +125,6 @@ export default function SideBar(props) {
           </div>
         </div>
       </div>
-      </Fade>
     </>
   )
 }

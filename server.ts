@@ -34,22 +34,22 @@ io.on("connection", (socket) => {
   socket.emit("ASK_NICKNAME")
   socket.emit("hello", "world")
   console.log("new connection :", socket.id)
-  socket.on("room::join", ({ room }) => {
-    socket.join(room)
-    console.log("room joined:", room)
+  socket.on("stream::join", ({ stream }) => {
+    socket.join(stream)
+    console.log("stream joined:", stream)
   })
-  socket.on("room::message::send", ({ room, message, time }) => {
-    console.log("Message received", message, room, time)
-    if (room && message) {
-      io.to(room).emit("room::message::send", { room, message, time })
+  socket.on("stream::message::send", ({ stream, message, time }) => {
+    console.log("Message received", message, stream, time)
+    if (stream && message) {
+      io.to(stream).emit("stream::message::send", { stream, message, time })
     } else {
-      console.log("Error no room or message")
+      console.log("Error no stream or message")
     }
   })
   socket.emit("ASK_PASSWORD")
   socket.on("private::message", (anotherSocketId, message, password) => {
     if (password) {
-      console.log("Welcome to private room", anotherSocketId, message)
+      console.log("Welcome to private stream", anotherSocketId, message)
     } else {
       console.log("password incorrect")
     }

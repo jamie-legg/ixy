@@ -66,6 +66,13 @@ enum TokenType {
   RESET_PASSWORD
 }
 
+enum StreamType {
+  PUBLIC
+  PRIVATE
+  AI
+  FRIENDS
+}
+
 model Stream {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
@@ -74,6 +81,7 @@ model Stream {
   messages  Message[]
   owner    User @relation(fields: [ownerId], references: [id])
   ownerId   Int
+  type      StreamType @default(PUBLIC)
 }
 
 model Message {

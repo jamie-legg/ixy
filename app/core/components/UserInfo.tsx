@@ -18,22 +18,17 @@ export const UserInfo = () => {
     return (
       <>
         <div className="text-left">
-        <IdentificationIcon className="text-black inline-block w-6 h-6" />
+          <IdentificationIcon className="text-black dark:text-ixy-800 mr-1 inline-block w-6 h-6" />
           User id: <code>{currentUser.id}</code>
           <br />
-          <AdjustmentsIcon className="text-black inline-block w-6 h-6" />
-          User role: <code>{currentUser.role}</code>
+          <AdjustmentsIcon className="text-black dark:text-ixy-800 mr-1 inline-block w-6 h-6" />
+          <span className="bg-ixy-100 rounded-sm text-ixy-900 p-1 lowercase">{currentUser.role} user</span>
           <br />
-          <TagIcon className="text-black inline-block w-6 h-6" />
-          User name: {currentUser.name? <code>{currentUser.name}</code> : <>
-          <input type="text" className="w-28" placeholder="SET A NAME"/><CheckCircleIcon className="text-rose-500 inline-block w-6 h-6" />
-          </>}
-          <br />
-          <MailIcon className="text-black inline-block w-6 h-6" />
+          <MailIcon className="text-black dark:text-ixy-800 mr-1 inline-block w-6 h-6" />
           User email: <code>{currentUser.email}</code>
           <div
-          className="bg-red-500 cursor-pointer font-bold w-max rounded-sm px-4 flex text-white"
-          onClick={() => logoutMutation()}>
+            className="bg-red-500 cursor-pointer font-bold w-max rounded-sm px-4 flex text-white"
+            onClick={() => logoutMutation()}>
             <LogoutIcon className="w-6 h-6 mx-2"></LogoutIcon>
             logout
           </div>
@@ -44,7 +39,7 @@ export const UserInfo = () => {
     return (
       <div className="w-96">
         <Link href={Routes.SignupPage()}>
-          <a className="button small rounded-lg uppercase bg-rose-500 text-white p-2">
+          <a className="button small rounded-lg uppercase bg-ixy-500 text-white p-2">
             <strong>Sign Up</strong>
           </a>
         </Link>

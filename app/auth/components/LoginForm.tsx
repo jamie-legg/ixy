@@ -17,12 +17,12 @@ export const LoginForm = (props: LoginFormProps) => {
         <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
-              <h1 className="text-rose-600 text-6xl font-bold">IXY<span className="text-black">:)</span></h1>
+              <h1 className="text-ixy-800 text-6xl font-bold">IXY<span className="text-black">:)</span></h1>
               <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
               <p className="mt-2 text-sm text-gray-600">
                 Or{' '}
                 <Link href={Routes.SignupPage()}>
-                  <a className="font-medium text-rose-600 hover:text-rose-500">
+                  <a className="font-medium text-ixy-800 hover:text-ixy-800">
                     create an account for free
                   </a>
                 </Link>
@@ -114,12 +114,12 @@ export const LoginForm = (props: LoginFormProps) => {
                   }}
                 >
                   <div>
-                    <LabeledTextField className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-rose-500 focus:border-rose-500 sm:text-sm" name="email" label="Email" placeholder="Email" />
+                    <LabeledTextField className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-ixy-800 focus:border-ixy-800 sm:text-sm" name="email" label="Email" placeholder="Email" />
                   </div>
 
                   <div className="space-y-1">
 
-                    <LabeledTextField className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-rose-500 focus:border-rose-500 sm:text-sm" name="password" label="Password" placeholder="Password" type="password" />
+                    <LabeledTextField className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-ixy-800 focus:border-ixy-800 sm:text-sm" name="password" label="Password" placeholder="Password" type="password" />
                   </div>
 
                   <div className="flex items-center justify-between">
@@ -128,7 +128,7 @@ export const LoginForm = (props: LoginFormProps) => {
                         id="remember-me"
                         name="remember-me"
                         type="checkbox"
-                        className="h-4 w-4 text-rose-600 focus:ring-rose-500 border-gray-300 rounded"
+                        className="h-4 w-4 text-ixy-800 focus:ring-ixy-800 border-gray-300 rounded"
                       />
                       <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                         Remember me
@@ -137,7 +137,7 @@ export const LoginForm = (props: LoginFormProps) => {
 
                     <div className="text-sm">
                       <Link href={Routes.ForgotPasswordPage()}>
-                        <a href="#" className="font-medium text-rose-600 hover:text-rose-500">
+                        <a href="#" className="font-medium text-ixy-800 hover:text-ixy-800">
                           Forgot your password?
                         </a>
                       </Link>

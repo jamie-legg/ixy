@@ -1,7 +1,14 @@
 import SideBar from "app/core/components/Sidebar";
-import { useContext, useEffect, useState } from "react";
+import { Suspense, useContext, useEffect, useState } from "react";
 import { SocketContext } from "../context/socket"
 import { Link } from "next/link";
+import UserGreeting from "app/core/components/UserGreeting";
+import { EyeOffIcon, AdjustmentsIcon, UserGroupIcon } from "@heroicons/react/outline";
+import { AdjustmentsIcon as AdjustmentsIconSolid, UserGroupIcon as UserGroupIconSolid, EyeOffIcon as EyeOffIconSolid } from "@heroicons/react/solid";
+import { classNames } from "app/core/utils/utils";
+import { usePaginatedQuery, useRouter } from "blitz";
+import getStreams from "app/streams/queries/getStreams";
+import StreamTable from "app/streams/components/StreamTable";
 
 
 interface IStream {
@@ -13,7 +20,15 @@ interface IStream {
   updatedAt: string
 }
 
+const categories = [
+  { name: "private streams", activeIcon: EyeOffIconSolid, icon: EyeOffIcon, current: true },
+  { name: "friends", activeIcon: UserGroupIconSolid, icon: UserGroupIcon, current: false },
+  { name: "preferences", activeIcon: AdjustmentsIcon, icon: AdjustmentsIconSolid, current: false }
+]
+
 export default function Me() {
+  const [currentCategories, setCurrentCategories] = useState(categories)
+  const [categoryIndex, setCategoryIndex] = useState(0)
 
   const defaultStream: IStream = {
     id: "",
@@ -28,9 +43,13 @@ export default function Me() {
     return []
   }
 
+  const ITEMS_PER_PAGE = 10;
+  const router = useRouter()
+  const page = Number(router.query.page) || 0
+
   const socket = useContext(SocketContext)!
   const [messages, setMessages] = useState<any[]>(getMessages())
-  const [stream, setStream] = useState(defaultStream)
+
 
 
 
@@ -40,39 +59,81 @@ export default function Me() {
     })
   }, [])
 
-  function join(room) {
-    socket.emit("room::join", room)
-  }
-  function send(message) {
-    console.log(stream)
-    socket.emit("room::message::send", {
-      room: stream,
-      message: message,
-      time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
-    })
-  }
-  function exit() {
+  const preferences = [
     {
-      stream.name
+      id: "",
+      name: "",
+      slug: "",
+      createdAt: "",
+      messageCount: 0,
     }
-  }
-  return (
-    <>
-      <SideBar join={join} setRoomSelect={setStream} exit={exit} />
-        <div className="flex flex-col w-full h-48 place-content-end">
-          <h1 className="text-4xl m-24 font-bold text-right">
-            My Private Streams
-            <Link href={`/streams/`}>
-            <button className="bg-rose-500 text-xl hover:bg-rose-700 text-white font-bold py-2 px-4 rounded-full">
-              View All
-            </button>
-            </Link>
-          </h1>
-          <p className="text-right">
-            These are texts, notes, articles, and other bits and pieces created by you, only for you.
-          </p>
+  ]
 
+  const friends = [
+    {
+      id: "",
+      name: "",
+      slug: "",
+      createdAt: "",
+      messageCount: 0,
+    }
+  ]
+
+  return (
+    <div className="dark:bg-ixy-900">
+      <SideBar currentNav={1}/>
+        <div className="lg:pl-72 pt-4 dark:bg-ixy-900 dark:text-ixy-100 h-full overflow-hidden flex flex-col w-full place-content-end">
+          <UserGreeting />
+          <h2>this is your private profile page, look at your notes, see what your friends are doing, or adjust your preferences</h2>
+          <div className="flex w-full justify-around">
+            {currentCategories.map((c, index) => (
+              <div
+                onClick={
+                  () => {
+                    let tempCategories = categories;
+                    tempCategories.forEach((category) => {
+                      category.current = false
+                    })
+                    tempCategories[index]!.current = true
+                    setCurrentCategories(tempCategories)
+                    setCategoryIndex(index)
+                }}
+              key={index} className={classNames(c.current? `border-ixy-800`: `border-ixy-900`, `flex border-b-2 cursor-pointer hover:border-ixy-800`)}>
+                {c.current ? <c.activeIcon className="w-6 mx-3 h-8"/> : <c.icon className="w-6 mx-3 h-8"/>}
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-ixy-100">{c.name}</h2>
+              </div>
+            ))}
+          </div>
+            {
+              categoryIndex === 0 ?(
+              <div className="flex flex-col w-full justify-around">
+                <Suspense
+                  fallback={
+                    <div>Loading...</div>}
+                    >
+                  <StreamTable type={'PRIVATE'} />
+                    </Suspense>
+              </div>)
+              : categoryIndex === 1 ?
+              (<div className="flex flex-col w-full justify-around">
+                {friends.map((friend, index) => (
+                  <div key={index} className="flex w-full justify-around">
+                    <div className="flex w-full justify-around">
+                      <h2 className="text-2xl font-bold text-gray-900 dark:text-ixy-100">{friend.name}</h2>
+                    </div>
+                  </div>
+                ))}
+              </div>)
+              : (<div className="flex flex-col w-full justify-around">
+                {preferences.map((preference, index) => (
+                  <div key={index} className="flex w-full justify-around">
+                    <div className="flex w-full justify-around">
+                      <h2 className="text-2xl font-bold text-gray-900 dark:text-ixy-100">{preference.name}</h2>
+                    </div>
+                  </div>
+                ))}
+              </div>)}
         </div>
-    </>
+    </div>
   )
 }

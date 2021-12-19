@@ -31,9 +31,10 @@ function getMessages() {
 function Home() {
   return (
     <>
-      <div>
+      <div className="dark:bg-ixy-900 dark:text-ixy-100">
         <Start />
-      </div>
+        </div>
+
     </>
   )
 }
