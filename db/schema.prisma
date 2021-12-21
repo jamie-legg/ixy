@@ -91,10 +91,13 @@ model Message {
   body      String
   stream    Stream   @relation(fields: [streamId], references: [id])
   streamId  Int
+  Reply     Reply[]
 }
 
 model Reply {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  message   Message  @relation(fields: [messageId], references: [id])
+  messageId Int
 }
