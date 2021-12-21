@@ -14,16 +14,16 @@ generator client {
 // --------------------------------------
 
 model User {
-  id             Int      @id @default(autoincrement())
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id             Int       @id @default(autoincrement())
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
   name           String?
-  email          String   @unique
+  email          String    @unique
   hashedPassword String?
-  role           UserType   @default(BASIC)
-  streams  Stream[]
-  tokens   Token[]
-  sessions Session[]
+  role           UserType  @default(BASIC)
+  streams        Stream[]
+  tokens         Token[]
+  sessions       Session[]
 }
 
 model Session {
@@ -74,12 +74,12 @@ enum StreamType {
 }
 
 model Stream {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   name      String
   messages  Message[]
-  owner    User @relation(fields: [ownerId], references: [id])
+  owner     User       @relation(fields: [ownerId], references: [id])
   ownerId   Int
   type      StreamType @default(PUBLIC)
 }
@@ -91,4 +91,10 @@ model Message {
   body      String
   stream    Stream   @relation(fields: [streamId], references: [id])
   streamId  Int
+}
+
+model Reply {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

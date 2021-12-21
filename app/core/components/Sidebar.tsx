@@ -70,7 +70,12 @@ export default function SideBar({ currentNav }) {
             <h2 className="text-sm font-thin px-4">chat with friends and ai</h2>
             <nav className="mt-5 flex-1 px-2 bg-white space-y-1">
               {navigation.map((item, index) => index === navigation.length - 1 ?
-                  <NewStreamDialog /> :
+                  <div className="bg-ixy-800 w-full p-2 uppercase font-bold rounded-lg">
+                  <Suspense fallback={<div>Loading...</div>}>
+                  <NewStreamDialog />
+                  </Suspense>
+                  </div>
+                   :
               (
                 <Link href={index === navigation.length-1? "" : item.href} key={item.name}>
                 <div
@@ -102,10 +107,13 @@ export default function SideBar({ currentNav }) {
                   />
                 }
                   <span className={classNames(
-                    item.current ? "font-bold" : "text-gray-400", "")}
+                    item.current ? "font-bold" : "text-gray-400", "flex justify-between w-full")}
                     >
                       {item.name}
+
+                      {item.current ? <span className="w-1 bg-ixy-300"></span> : ""}
                   </span>
+
                 </div>
                 </Link>
               ))}

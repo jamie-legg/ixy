@@ -1,3 +1,4 @@
+import { StreamType } from "@prisma/client"
 import { z } from "zod"
 
 export const CreateStream = z.object({
@@ -9,6 +10,7 @@ export const CreateStream = z.object({
     }
   ),
   ownerId: z.number(),
+  type: z.enum(["PUBLIC", "PRIVATE", "AI", "FRIENDS"]),
 })
 
 export const email = z

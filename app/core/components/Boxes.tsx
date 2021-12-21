@@ -15,7 +15,7 @@ export default function Boxes({ expanded }) {
           </p>
         </a>
       </Link>
-      <Link href={'/ai'}>
+      <Link href={'/yan'}>
         <a
           className="cursor-pointer p-6 mt-6 text-left border w-96 rounded-xl hover:text-ixy-800 focus:text-ixy-800"
         >

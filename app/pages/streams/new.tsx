@@ -1,36 +1,23 @@
 import { Link, useRouter, useMutation, BlitzPage, Routes } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import createStream from "app/streams/mutations/createStream"
-import { StreamForm, FORM_ERROR } from "app/streams/components/StreamForm"
+import { StreamForm } from "app/streams/components/StreamForm"
 import { CreateStream } from "app/auth/validations"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
+import { Suspense } from "react"
 
 const NewStreamPage: BlitzPage = () => {
-  const currentUser = useCurrentUser();
   const router = useRouter()
-  const [createStreamMutation] = useMutation(createStream)
+
 
   return (
+
     <div>
+      <Suspense fallback={<div>Loading...</div>}>
       <h1>Create New Stream</h1>
 
       <StreamForm
         submitText="Create Stream"
-        onSubmit={async (values) => {
-          try {
-            const stream = await createStreamMutation({
-              name: values.name,
-              owner: { id: currentUser!.id, role: currentUser!.role },
-              ownerId: currentUser!.id,
-            })
-            router.push(Routes.ShowStreamPage({ streamId: stream.id }))
-          } catch (error: any) {
-            console.error(error)
-            return {
-              [FORM_ERROR]: error.toString(),
-            }
-          }
-        }}
       />
 
       <p>
@@ -38,6 +25,7 @@ const NewStreamPage: BlitzPage = () => {
           <a>Streams</a>
         </Link>
       </p>
+      </Suspense>
     </div>
   )
 }

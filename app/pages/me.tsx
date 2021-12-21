@@ -9,6 +9,7 @@ import { classNames } from "app/core/utils/utils";
 import { usePaginatedQuery, useRouter } from "blitz";
 import getStreams from "app/streams/queries/getStreams";
 import StreamTable from "app/streams/components/StreamTable";
+import Layout from "app/core/layouts/Layout";
 
 
 interface IStream {
@@ -26,7 +27,7 @@ const categories = [
   { name: "preferences", activeIcon: AdjustmentsIcon, icon: AdjustmentsIconSolid, current: false }
 ]
 
-export default function Me() {
+function Me() {
   const [currentCategories, setCurrentCategories] = useState(categories)
   const [categoryIndex, setCategoryIndex] = useState(0)
 
@@ -137,3 +138,8 @@ export default function Me() {
     </div>
   )
 }
+
+Me.authenticate = true
+Me.getLayout = (page) => <Layout>{page}</Layout>
+
+export default Me

@@ -8,6 +8,7 @@ export default resolver.pipe(resolver.zod(CreateStream), resolver.authorize(), a
     data: {
       name: input.name,
       ownerId: input.ownerId,
+      type: input.type,
     }
   })
 
