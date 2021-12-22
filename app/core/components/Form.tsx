@@ -40,7 +40,7 @@ export function Form<S extends z.ZodType<any, any>>({
           )}
 
           {submitText && (
-            <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-ixy-600 hover:bg-ixy-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ixy-500" disabled={submitting}>
+            <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-ixy-500 transition-all text-ixy-900 hover:bg-ixy-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ixy-500" disabled={submitting}>
               {submitText}
             </button>
           )}

@@ -13,7 +13,7 @@ export const LoginForm = (props: LoginFormProps) => {
 
   return (
     <>
-      <div className="min-h-full h-screen flex">
+      <div className="min-h-full dark:bg-ixy-900 dark:text-ixy-100 h-screen flex">
         <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
@@ -38,7 +38,7 @@ export const LoginForm = (props: LoginFormProps) => {
                     <div>
                       <a
                         href="#"
-                        className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                        className="w-full inline-flex justify-center hover:bg-ixy-800 transition-all py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                       >
                         <span className="sr-only">Sign in with Facebook</span>
                         <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -54,7 +54,7 @@ export const LoginForm = (props: LoginFormProps) => {
                     <div>
                       <a
                         href="#"
-                        className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                        className="w-full inline-flex justify-center hover:bg-ixy-800 transition-all py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                       >
                         <span className="sr-only">Sign in with Twitter</span>
                         <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -66,7 +66,7 @@ export const LoginForm = (props: LoginFormProps) => {
                     <div>
                       <a
                         href="#"
-                        className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                        className="w-full inline-flex justify-center hover:bg-ixy-800 transition-all py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                       >
                         <span className="sr-only">Sign in with GitHub</span>
                         <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -86,7 +86,7 @@ export const LoginForm = (props: LoginFormProps) => {
                     <div className="w-full border-t border-gray-300" />
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                    <span className="px-2 bg-ixy-300 text-ixy-900 rounded-lg p-2">Or continue with</span>
                   </div>
                 </div>
               </div>

@@ -12,9 +12,11 @@ export default resolver.pipe(resolver.zod(GetUserStreamCategory),
 
 resolver.authorize(), async ({ type, id })  => {
   // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  const stream = await db.stream.findMany({ where: { type, id } })
+  console.log("FIND STREAM FROM TYPE", type, id);
 
+  const stream = await db.stream.findMany({ where: { type, ownerId: id } })
   if (!stream) throw new NotFoundError()
+  console.log("FIND STREAM FROM TYPE RETURN", stream, type, id);
 
   return stream
 })

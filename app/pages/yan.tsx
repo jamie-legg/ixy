@@ -3,6 +3,7 @@ import { SocketContext } from "app/context/socket";
 import SideBar from "app/core/components/Sidebar";
 import StreamTable from "app/streams/components/StreamTable";
 import { Suspense, useContext, useEffect, useState } from "react";
+import Layout from "app/core/layouts/Layout";
 const messages = [
 
 ]
@@ -102,4 +103,8 @@ const Yan = () => {
     </div>
   )
 }
+
+Yan.authenticate = true;
+Yan.getLayout = (page) => <Layout>{page}</Layout>
+
 export default Yan;

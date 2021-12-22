@@ -82,6 +82,7 @@ model Stream {
   owner     User       @relation(fields: [ownerId], references: [id])
   ownerId   Int
   type      StreamType @default(PUBLIC)
+  messageCount Int @default(0)
 }
 
 model Message {
