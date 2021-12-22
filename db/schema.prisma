@@ -59,6 +59,7 @@ model Stream {
   messageCount Int        @default(0)
   owner        User       @relation(fields: [ownerId], references: [id])
   messages     Message[]
+  replies      Reply[]
 }
 
 model Message {
@@ -68,15 +69,15 @@ model Message {
   body      String
   streamId  Int
   stream    Stream   @relation(fields: [streamId], references: [id])
-  Reply     Reply[]
 }
 
 model Reply {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  messageId Int
-  message   Message  @relation(fields: [messageId], references: [id])
+  body      String
+  streamId  Int
+  stream    Stream   @relation(fields: [streamId], references: [id])
 }
 
 enum UserType {

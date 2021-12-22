@@ -4,7 +4,7 @@ import { z } from "zod"
 
 const CreateReply = z.object({
   name: z.string(),
-  messageId: z.number(),
+  streamId: z.number(),
 })
 
 export default resolver.pipe(resolver.zod(CreateReply), resolver.authorize(), async (input) => {

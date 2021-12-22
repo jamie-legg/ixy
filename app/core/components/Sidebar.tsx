@@ -70,7 +70,7 @@ export default function SideBar({ currentNav }) {
             <h2 className="text-sm font-thin px-4">chat with friends and ai</h2>
             <nav className="mt-5 flex-1 px-2 bg-white space-y-1">
               {navigation.map((item, index) => index === navigation.length - 1 ?
-                  <div className="bg-ixy-800 w-full p-2 uppercase font-bold rounded-lg">
+                  <div key={index} className="bg-ixy-800 w-full p-2 uppercase font-bold rounded-lg">
                   <Suspense fallback={<div>Loading...</div>}>
                   <NewStreamDialog />
                   </Suspense>

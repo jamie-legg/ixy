@@ -8,9 +8,9 @@ const ITEMS_PER_PAGE = 100
 export const RepliesList = () => {
   const router = useRouter()
   const page = Number(router.query.page) || 0
-  const messageId = useParam("messageId", "number")
+  const streamId = useParam("streamId", "number")
   const [{ replies, hasMore }] = usePaginatedQuery(getReplies, {
-    where: { message: { id: messageId! } },
+    where: { stream: { id: streamId! } },
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
