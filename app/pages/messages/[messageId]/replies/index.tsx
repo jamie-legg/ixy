@@ -24,9 +24,6 @@ export const RepliesList = () => {
       <ul>
         {replies.map((reply) => (
           <li key={reply.id}>
-            <Link href={Routes.ShowReplyPage({ replyId: reply.id })}>
-              <a>{reply.name}</a>
-            </Link>
           </li>
         ))}
       </ul>

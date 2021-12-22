@@ -17,20 +17,22 @@ export default function Start() {
             <h1 className="text-6xl font-bold text-left">
               welcome to{' '}
               <a className="text-ixy-600 dark:text-ixy-800" href="https://nextjs.org">
-                IXY<span className="text-ixy-100">:)</span>
+                ixy<span className="text-ixy-100">.chat</span>:)
               </a>
             </h1>
+
           </Fade>
           <Fade duration={1500}>
             <p className="mt-30 text-2xl text-left">who are you going to chat to?</p>
           </Fade>
+          <Suspense fallback={<div>Loading...</div>}>
+              <UserInfo />
+            </Suspense>
           <Fade duration={1500}>
             <Boxes expanded={isOpen} />
           </Fade>
           <div className='flex justify-between'>
-            <Suspense fallback={<div>Loading...</div>}>
-              <UserInfo />
-            </Suspense>
+
 
             <p className="mt-30 text-2xl">select an option to <span className='text-ixy-800 font-bold transition-all hover:bg-ixy-600 hover:text-white'>get started &rarr;</span></p>
 

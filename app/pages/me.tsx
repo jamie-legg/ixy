@@ -23,8 +23,8 @@ interface IStream {
 
 const categories = [
   { name: "private streams", activeIcon: EyeOffIconSolid, icon: EyeOffIcon, current: true },
-  { name: "friends", activeIcon: UserGroupIconSolid, icon: UserGroupIcon, current: false },
-  { name: "preferences", activeIcon: AdjustmentsIcon, icon: AdjustmentsIconSolid, current: false }
+  { name: "socials & friends", activeIcon: UserGroupIconSolid, icon: UserGroupIcon, current: false },
+  { name: "user preferences", activeIcon: AdjustmentsIcon, icon: AdjustmentsIconSolid, current: false }
 ]
 
 function Me() {

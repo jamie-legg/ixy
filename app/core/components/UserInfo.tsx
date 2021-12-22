@@ -37,19 +37,23 @@ export const UserInfo = () => {
     )
   } else {
     return (
-      <div className="w-96">
+      <>
+      <div className="flex w-full justify-start mt-2">
         <Link href={Routes.SignupPage()}>
-          <a className="button small rounded-lg uppercase bg-ixy-500 text-white p-2">
+          <a className="button small rounded-lg uppercase bg-ixy-500 text-ixy-900 p-2">
             <strong>Sign Up</strong>
           </a>
         </Link>
-        <span className="mx-2">or</span>
+        <span className="mx-2 mt-2">or</span>
         <Link href={Routes.LoginPage()}>
-          <a className="button small rounded-lg uppercase bg-black text-white p-2">
+          <a className="button small rounded-lg uppercase bg-ixy-800 text-ixy-100 bg-black text-white p-2">
             <strong>Login</strong>
           </a>
         </Link>
+
       </div>
+      <p className="text-left mt-2 lowercase">free, open-source, and lowercase. always</p>
+      </>
     )
   }
 }

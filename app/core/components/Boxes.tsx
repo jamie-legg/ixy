@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Boxes({ expanded }) {
   return (
-    <div className="flex flex-wrap my-6 w-full justify-center">
+    <div className="flex flex-wrap my-4 w-full justify-center">
       <Link href={'/me'}>
         <a className="cursor-pointer p-6 mt-6 text-left border w-96 mr-6 rounded-xl hover:text-ixy-800 focus:text-ixy-800">
           <h3 className="text-2xl font-bold flex">
