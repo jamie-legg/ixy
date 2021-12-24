@@ -29,7 +29,7 @@ export default resolver.pipe(resolver.zod(CreateMessage), resolver.authorize(), 
             console.log("AI RESPONSE GENERATED");
             const response = await getResponse(input.body);
             console.log("AI RESPONSE", response);
-            const reply = await db.reply.create({ data: { body: response, stream: updatedStream }});
+            const reply = await db.reply.create({ data: { body: response, streamId: s.id }});
           }
         }
     }})

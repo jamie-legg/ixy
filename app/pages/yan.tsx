@@ -36,7 +36,6 @@ const Yan = () => {
             </h2>
             <div className="w-full flex">
               <div className="w-96 rounded-lg lowercase bg-ixy-700 dark:text-ixy-100 h-1/2">
-                <div className="w-full h-full bg-ixy-600 rounded-lg font-bold">your ai streams</div>
                 {streams.map(stream => {
                   return (
                     <div>{stream.name}</div>

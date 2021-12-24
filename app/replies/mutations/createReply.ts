@@ -4,6 +4,7 @@ import { z } from "zod"
 
 const CreateReply = z.object({
   name: z.string(),
+  body: z.string(),
   streamId: z.number(),
 })
 

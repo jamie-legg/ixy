@@ -20,7 +20,7 @@ function openAI() {
           "presence_penalty": 1.41,
           "stop": ["Human:"]
     });
-    return response.data;
+    return response.data ? response.data.choices[0].text : "";
   }
 
   return {

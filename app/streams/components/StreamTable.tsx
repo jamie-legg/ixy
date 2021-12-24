@@ -44,7 +44,11 @@ const StreamTable = ({ type }) => {
     {streams.map((stream, index) => (
         <div className="flex flex-col w-96 bg-ixy-900">
           <div className="flex justify-between w-full">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-ixy-100 mx-2">#{stream.id}: <span className="font-normal">{stream.name} ({stream.messageCount} messages)</span></h2>
+            <h2 className="text-xl flex justify-between font-bold text-gray-900 dark:text-ixy-100 mx-2">#{stream.id}:
+            <span className="font-normal">
+              &nbsp;{stream.name}
+              </span>
+              </h2>
             <h2 className="text-xl text-gray-900 dark:text-ixy-100">{stream.updatedAt.toLocaleTimeString(undefined, {
               hour: '2-digit',
               minute: '2-digit',
