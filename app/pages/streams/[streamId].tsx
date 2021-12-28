@@ -7,27 +7,20 @@ import getMessages from "app/messages/queries/getMessages"
 import { PaperAirplaneIcon } from "@heroicons/react/solid"
 import createMessage from "app/messages/mutations/createMessage"
 import { MessageForm } from "app/messages/components/MessageForm"
-import { MessageBox } from "app/core/components/MessageBox"
+import MessageBox from "app/messages/components/MessageBox"
 import { FORM_ERROR } from "app/messages/components/MessageForm"
 
-const ITEMS_PER_PAGE = 100
+
 
 export const Stream = () => {
   const router = useRouter()
-  const page = Number(router.query.page) || 0
+  
   const streamId = useParam("streamId", "number")
   const [deleteStreamMutation] = useMutation(deleteStream)
   const [stream] = useQuery(getStream, { id: streamId })
-  const [{ messages, hasMore }] = usePaginatedQuery(getMessages, {
-    where: { stream: { id: streamId! } },
-    orderBy: { id: "asc" },
-    skip: ITEMS_PER_PAGE * page,
-    take: ITEMS_PER_PAGE,
-  })
   const [createMessageMutation] = useMutation(createMessage)
 
   const [composingMessage, setComposingMessage] = useState("")
-  const [messageState, setMessageState] = useState(messages as unknown as string[]);
 
   return (
     <>
@@ -61,7 +54,7 @@ export const Stream = () => {
         </h2>
         <ul>
         <Suspense fallback={<div>Loading...</div>}>
-          <MessageBox messages={messages} />
+          <MessageBox s={stream} />
         </Suspense>
               <MessageForm
         submitText="Create Message"

@@ -12,7 +12,8 @@ model User {
   id             Int       @id @default(autoincrement())
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
-  name           String?
+  username       String    @default("user")
+  imageUrl       String    @default("https://cdn.discordapp.com/attachments/671848184938758155/925044142550163456/ixysmile.png")
   email          String    @unique
   hashedPassword String?
   role           UserType  @default(BASIC)
@@ -55,6 +56,7 @@ model Stream {
   updatedAt    DateTime   @updatedAt
   name         String
   ownerId      Int
+  imageUrl     String    @default("https://cdn.discordapp.com/attachments/671848184938758155/925044142550163456/ixysmile.png")
   type         StreamType @default(PUBLIC)
   messageCount Int        @default(0)
   owner        User       @relation(fields: [ownerId], references: [id])

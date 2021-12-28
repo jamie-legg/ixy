@@ -20,7 +20,7 @@ const SignupPage: BlitzPage = () => {
             </p>
           </div>
           <SignupForm onSuccess={() => router.push(Routes.Home())} />
-          
+
         </div>
       </div>
     </>

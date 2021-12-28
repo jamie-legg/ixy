@@ -14,12 +14,14 @@ export default function Start() {
       <div className="flex flex-col items-left justify-center w-full flex-1 px-20 text-center">
         <div className={`left w-3/4 sm:mx-12 lg:mx-48`}>
           <Fade duration={1000}>
+
             <h1 className="text-6xl font-bold text-left">
               welcome to{' '}
               <a className="text-ixy-600 dark:text-ixy-800" href="https://nextjs.org">
                 ixy<span className="text-ixy-100">.chat</span>:)
               </a>
             </h1>
+
 
           </Fade>
           <Fade duration={1500}>

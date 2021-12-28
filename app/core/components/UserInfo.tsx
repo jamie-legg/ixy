@@ -7,7 +7,8 @@ import logout from "app/auth/mutations/logout"
 import logo from "public/logo.png"
 import Sidebar from "./Sidebar"
 import { MenuIcon } from "@heroicons/react/outline"
-import { AdjustmentsIcon, BackspaceIcon, ChatIcon, CheckCircleIcon, IdentificationIcon, LogoutIcon, MailIcon, RefreshIcon, RewindIcon, TagIcon, UserIcon } from "@heroicons/react/solid"
+import { AdjustmentsIcon, AtSymbolIcon, BackspaceIcon, ChatIcon, CheckCircleIcon, CogIcon, IdentificationIcon, LogoutIcon, MailIcon, RefreshIcon, RewindIcon, TagIcon, UserIcon } from "@heroicons/react/solid"
+import Typical from "react-typical";
 
 export const UserInfo = () => {
   const currentUser = useCurrentUser()
@@ -16,20 +17,28 @@ export const UserInfo = () => {
   if (currentUser) {
     return (
       <>
-        <div className="text-left">
-          <IdentificationIcon className="text-black dark:text-ixy-800 mr-1 inline-block w-6 h-6" />
-          User id: <code>{currentUser.id}</code>
-          <br />
-          <AdjustmentsIcon className="text-black dark:text-ixy-800 mr-1 inline-block w-6 h-6" />
-          <span className="bg-ixy-100 rounded-sm text-ixy-900 p-1 lowercase">{currentUser.role} user</span>
-          <br />
-          <MailIcon className="text-black dark:text-ixy-800 mr-1 inline-block w-6 h-6" />
-          User email: <code>{currentUser.email}</code>
+        <div className="text-left flex">
+          <div className="rounded-full border-ixy-800 border-2 p-2.5 w-12 h-12 mr-3">
+            <Image className="ml-3 mt-3" src={currentUser.imageUrl} width="40" height="40" />
+          </div>
+          <div className="w-full flex flex-col">
+          <span className="text-bold text-ixy-800">
+            <AtSymbolIcon className="w-6 h-6 inline-block" />
+            <code className="text-ixy-100 text-xl">{currentUser.username === "user" ? `${currentUser.username}${currentUser.id}` : currentUser.username}</code>
+          </span>
+      <div className="flex flex-row justify-start space-x-2.5">
           <div
-            className="bg-red-500 cursor-pointer font-bold w-max rounded-sm px-4 flex text-white"
+            className="bg-ixy-100 cursor-pointer font-bold w-max rounded-lg px-2.5 py-1 flex text-ixy-900"
+            onClick={() => logoutMutation()}>
+            <CogIcon className="w-6 h-6 mx-2"></CogIcon>
+          </div>
+
+          <div
+            className="bg-ixy-800 cursor-pointer font-bold w-max rounded-lg px-2.5 py-1 flex text-white"
             onClick={() => logoutMutation()}>
             <LogoutIcon className="w-6 h-6 mx-2"></LogoutIcon>
-            logout
+          </div>
+          </div>
           </div>
         </div>
       </>

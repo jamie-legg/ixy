@@ -35,7 +35,7 @@ export const StreamsList = () => {
       <ChevronRightIcon className="w-12 h-12 text-black"/>
       </button>
       </div>
-      <Table headings={['name', 'owner', 'status', 'type']} body={streams} />
+      <Table headings={['name + image', 'type', 'messages', 'owner']} body={streams} />
     </div>
   )
 }

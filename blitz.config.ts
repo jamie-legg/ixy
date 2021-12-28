@@ -2,7 +2,7 @@ import { BlitzConfig, sessionMiddleware, simpleRolesIsAuthorized } from "blitz"
 
 const config: BlitzConfig = {
   images: {
-    domains: ["tailwindui.com"],
+    domains: ["tailwindui.com", "cdn.discordapp.com"],
   },
   middleware: [
     sessionMiddleware({

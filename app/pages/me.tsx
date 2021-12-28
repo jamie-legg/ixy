@@ -4,7 +4,7 @@ import { SocketContext } from "../context/socket"
 import { Link } from "next/link";
 import UserGreeting from "app/core/components/UserGreeting";
 import { EyeOffIcon, AdjustmentsIcon, UserGroupIcon } from "@heroicons/react/outline";
-import { AdjustmentsIcon as AdjustmentsIconSolid, UserGroupIcon as UserGroupIconSolid, EyeOffIcon as EyeOffIconSolid } from "@heroicons/react/solid";
+import { AdjustmentsIcon as AdjustmentsIconSolid, UserGroupIcon as UserGroupIconSolid, EyeOffIcon as EyeOffIconSolid, InformationCircleIcon } from "@heroicons/react/solid";
 import { classNames } from "app/core/utils/utils";
 import { usePaginatedQuery, useRouter } from "blitz";
 import getStreams from "app/streams/queries/getStreams";
@@ -23,7 +23,7 @@ interface IStream {
 
 const categories = [
   { name: "private streams", activeIcon: EyeOffIconSolid, icon: EyeOffIcon, current: true },
-  { name: "socials & friends", activeIcon: UserGroupIconSolid, icon: UserGroupIcon, current: false },
+  { name: "friends & groups", activeIcon: UserGroupIconSolid, icon: UserGroupIcon, current: false },
   { name: "user preferences", activeIcon: AdjustmentsIcon, icon: AdjustmentsIconSolid, current: false }
 ]
 
@@ -85,8 +85,9 @@ function Me() {
       <SideBar currentNav={1}/>
         <div className="lg:pl-72 pt-4 dark:bg-ixy-900 dark:text-ixy-100 h-full overflow-hidden flex flex-col w-full place-content-end">
           <UserGreeting />
-          <h2>this is your private profile page, look at your notes, see what your friends are doing, or adjust your preferences</h2>
-          <div className="flex w-full justify-around">
+          <h2 className="py-12 text-xl"><InformationCircleIcon className="inline-block w-6 h-6 mx-2" />
+          this is your private profile page, look at your notes (private streams), configure your groups of friends, or adjust your personal preferences</h2>
+          <div className="flex w-full justify-around pb-6">
             {currentCategories.map((c, index) => (
               <div
                 onClick={
@@ -105,12 +106,13 @@ function Me() {
               </div>
             ))}
           </div>
+          <div className="flex flex-col w-full dark:bg-ixy-900">
             {
               categoryIndex === 0 ?(
               <div className="flex flex-col w-full justify-around">
                 <Suspense
                   fallback={
-                    <div>Loading...</div>}
+                    <div className="h-screen w-full dark:bg-ixy-900">Loading...</div>}
                     >
                   <StreamTable type={'PRIVATE'} />
                     </Suspense>
@@ -134,6 +136,7 @@ function Me() {
                   </div>
                 ))}
               </div>)}
+              </div>
         </div>
     </div>
   )

@@ -7,8 +7,9 @@ const Layout: BlitzLayout<{title?: string}> = ({ title, children }) => {
         <title>{title || "ixy"}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <div className="dark:bg-ixy-900">
       {children}
+      </div>
     </>
   )
 }
