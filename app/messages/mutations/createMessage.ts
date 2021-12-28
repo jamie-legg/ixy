@@ -16,7 +16,6 @@ export default resolver.pipe(resolver.zod(CreateMessage), resolver.authorize(), 
       const s = await db.stream.findUnique({ where: { id: input.streamId } })
       if(s) {
         const messageCount = s.messageCount + 1;
-        console.log("UPDATING MESSAGE COUNT", messageCount);
         const updatedStream = await db.stream.update({
           where: { id: s.id },
           data: { messageCount }
@@ -26,9 +25,7 @@ export default resolver.pipe(resolver.zod(CreateMessage), resolver.authorize(), 
           //GENERATE AN AI RESPONSE IF MESSAGE COUNT MEETS THRESHOLD
           if(messageCount % 3 === 0) {
             const { getResponse } = OpenAI();
-            console.log("AI RESPONSE GENERATED");
             const response = await getResponse(input.body);
-            console.log("AI RESPONSE", response);
             const reply = await db.reply.create({ data: { body: response, streamId: s.id }});
           }
         }

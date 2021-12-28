@@ -33,8 +33,15 @@ const MessageBox = ({ s }: IMessageBoxProps) => {
   useEffect(() => {
     socket?.connect();
     socket!.on("message", (message) => {
-      console.log(message)
+      console.log("NEW MESSAGE FROM WS" + message)
     })
+    console.log(
+      socket?.emit("message", {
+        message: "hello",
+        stream: s?.id,
+      })
+    );
+
   }, [])
   return (
     s === undefined ?
@@ -70,15 +77,15 @@ const MessageBox = ({ s }: IMessageBoxProps) => {
               <div className="flex flex-col w-full justify-between">
               {messageMap.map((message, index) => {
                 return index % 2 === 0 ? (
-                  <div className="flex w-full">
+                  <div key={index} className="flex w-full">
                     <div className="dark:text-ixy-100 lowercase text-xs">Jamie</div>
                     <div key={index} className="flex w-max rounded-lg p-2 m-2 bg-ixy-800 lowercase dark:text-ixy-100 flex-col items-left justify-left h-full">
                       <p>{message}</p>
                     </div>
                   </div>) :
                   (
-                    <div className="flex w-full place-content-end">
-                      <div key={index} className="flex w-max rounded-lg p-2 m-2 bg-ixy-100 lowercase dark:text-ixy-900 flex-col place-content-end items-end h-full">
+                    <div key={index} className="flex w-full place-content-end">
+                      <div className="flex w-max rounded-lg p-2 m-2 bg-ixy-100 lowercase dark:text-ixy-900 flex-col place-content-end items-end h-full">
                         <p>{message}</p>
 
                       </div>

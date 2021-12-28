@@ -31,8 +31,6 @@ const io = new Server({
 })
 
 io.on("connection", (socket) => {
-  socket.emit("ASK_NICKNAME")
-  socket.emit("hello", "world")
   console.log("new connection :", socket.id)
   socket.on("stream::join", ({ stream }) => {
     socket.join(stream)
