@@ -23,16 +23,14 @@ function NewStreamPopover() {
     owner: { id: currentUser!.id, role: currentUser!.role },
     ownerId: currentUser!.id,
     type: newStreamType
-  })
-  router.push(
-    newStreamType === "PUBLIC" ?
-    Routes.GlobalPage() :
-    newStreamType === "PRIVATE" ?
-    Routes.Me() :
-    newStreamType === "AI" ?
-    Routes.Yan() :
-    Routes.Home());
-}
+  }).then(newStream => {
+    router.push(
+      Routes.ShowStreamPage({ streamId: newStream.id })
+    );
+  });
+
+  }
+
   return (
     <Popover className="relative">
       <Popover.Button className="flex font-bold uppercase">
@@ -45,7 +43,7 @@ function NewStreamPopover() {
 
       <Popover.Panel className="w-full p-2 absolute z-10">
         <Fade duration={200}>
-        <div className="grid font-bold grid-cols-2 p-2 m-2 bg-ixy-800 rounded-lg">
+        <div className="grid font-bold grid-cols-2 p-2 m-2 bg-ixy-700 rounded-lg">
           <div>set type</div>
           <select onChange={
             (e) => {
@@ -61,13 +59,13 @@ function NewStreamPopover() {
           <div><input value={streamName} onChange={(e) => {
             setStreamName(e.target.value)}
           } className='w-full bg-ixy-700 rounded-lg p-2 placeholder-ixy-100' placeholder='name'></input> </div>
-          <div onClick={() => newStream()} className='bg-ixy-500 flex col-span-2 p-2 rounded-lg'>
+          <button onClick={() => newStream()} className='bg-ixy-800 flex col-span-2 p-2 rounded-lg'>
           <LightningBoltIcon
                     className={"text-black group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6"
                     }
                     aria-hidden="true"
                   />
-            Execute</div>
+            Execute</button>
         </div>
         </Fade>
       </Popover.Panel>

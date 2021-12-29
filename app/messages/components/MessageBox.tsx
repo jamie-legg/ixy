@@ -1,4 +1,4 @@
-import { ChevronDoubleDownIcon } from "@heroicons/react/solid";
+import { ChevronDoubleDownIcon, PaperAirplaneIcon } from "@heroicons/react/solid";
 import { SocketContext } from "app/context/socket";
 import { useMutation, usePaginatedQuery, useRouter } from "blitz";
 import { useContext, useEffect, useState } from "react";
@@ -23,7 +23,7 @@ const MessageBox = ({ s }: IMessageBoxProps) => {
     take: ITEMS_PER_PAGE,
   }) : [{ messages: [], hasMore: false }]
   const [messageState, setMessageState] = useState(messages as unknown as string[]);
-
+  const [createMessageMutation] = useMutation(createMessage);
 
 
   const [message, setMessage] = useState("")
@@ -59,13 +59,14 @@ const MessageBox = ({ s }: IMessageBoxProps) => {
         <div className="w-full h-full rounded-lg">
           <form
             onSubmit={
-              (e) => {
+              async (e) => {
                 e.preventDefault();
                 socket!.emit("room::message::send", {
                   message: message,
                   stream: s.id,
                   time: new Date().toISOString(),
                 });
+                const newMessage = await createMessageMutation({ body:message, streamId: s.id! })
                 setMessageMap([...messageMap, message])
                 setMessage("")
               }
@@ -94,7 +95,7 @@ const MessageBox = ({ s }: IMessageBoxProps) => {
                   )
               })}
               </div>
-              <div className="fixed bottom-6 flex w-96">
+              <div className="fixed bottom-6 flex w-96 space-x-2.5">
               <input
                 onChange={(e) => {
                   setMessage(e.target.value)
@@ -102,10 +103,10 @@ const MessageBox = ({ s }: IMessageBoxProps) => {
                 value={
                   message
                 }
-                className="h-16 p-1 w-11/12 dark:text-ixy-100 italic rounded-lg dark:bg-ixy-100 placeholder-ixy-900 border-none"
+                className="h-16 p-1 w-11/12 pl-4 dark:text-ixy-900 italic rounded-full dark:bg-ixy-100 placeholder-ixy-900 border-none"
                 placeholder={"write your message..."} />
-              <button className="bg-ixy-100 text-lg w-1/12 rounded-full h-12 dark:text-ixy-900">
-                <ChevronDoubleDownIcon className="w-6 h-6 mb-1 ml-2.5" />
+              <button type="submit" className="bg-ixy-800 px-5 py-2 text-sm shadow-sm w-24 font-medium tracking-wider  text-gray-600 rounded-full hover:shadow-2xl hover:bg-gray-100">
+                <PaperAirplaneIcon className="w-6 h-6 inline-block" /> send
               </button>
               </div>
             </div>
